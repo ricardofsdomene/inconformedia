@@ -65,7 +65,7 @@ export default function Landing() {
       >
         <Flex flexDir="row" align="center">
           <Image
-            src="https://o.remove.bg/downloads/15705da8-87b7-41ad-82a9-83ad0efa0e4c/Screen_Shot_2022-05-08_at_3.56.52_PM-removebg-preview.png"
+            src="http://localhost:5556/images/inconformedia.png"
             w="45"
             h="45"
             mr="2"
@@ -590,11 +590,60 @@ export default function Landing() {
               );
             })}
           </Flex>
-          <Flex bg="#333" w="100%" mt="5" borderRadius="5" justify="center" align="center" p="4">
-            <Text color="#FFF" fontWeight="bold">Todos os produtos</Text>
+          <Flex
+            bg="#333"
+            w="100%"
+            mt="5"
+            borderRadius="5"
+            justify="center"
+            align="center"
+            p="4"
+          >
+            <Text color="#FFF" fontWeight="bold">
+              Todos os produtos
+            </Text>
           </Flex>
         </Flex>
       </>
+    );
+  }
+
+  function Paths() {
+    return (
+      <Flex
+        align="center"
+        style={{
+          paddingBottom: 20,
+          width: "100%",
+          top: 80,
+        }}
+        justify="space-around"
+        bg="#eee"
+        borderBottom="1px solid #e0e0e0"
+      >
+        <Text
+          color="#333"
+          textDecorationLine={
+            route.pathname === "/landing" ? "underline" : "none"
+          }
+        >
+          Dashboard
+        </Text>
+        <Link href="/produtos">
+          <Text color="#333" cursor="pointer">
+            Produtos
+          </Text>
+        </Link>
+        <Text color="#333" cursor="pointer">
+          Retiradas
+        </Text>
+        <Text color="#333" cursor="pointer">
+          Assinantes
+        </Text>
+        <Text color="#333" cursor="pointer">
+          ...
+        </Text>
+      </Flex>
     );
   }
 
@@ -604,38 +653,7 @@ export default function Landing() {
       <Flex flexDir="column" style={{ paddingTop: 80 }} p="4" bg="#eee">
         {!isWideVersion && (
           <>
-            <Flex
-              align="center"
-              style={{
-                paddingBottom: 20,
-                width: "100%",
-                top: 80,
-              }}
-              justify="space-around"
-              bg="#eee"
-              borderBottom="1px solid #e0e0e0"
-            >
-              <Text
-                color="#333"
-                textDecorationLine={
-                  route.pathname === "/landing" ? "underline" : "none"
-                }
-              >
-                Dashboard
-              </Text>
-              <Text color="#333" cursor="pointer">
-                Produtos
-              </Text>
-              <Text color="#333" cursor="pointer">
-                Retiradas
-              </Text>
-              <Text color="#333" cursor="pointer">
-                Assinantes
-              </Text>
-              <Text color="#333" cursor="pointer">
-                ...
-              </Text>
-            </Flex>
+            <Paths />
             <Flex align="center" justify="space-between">
               <Flex flexDir="column">
                 <Text mt="5" color="#333" fontSize="md">
@@ -745,11 +763,7 @@ export default function Landing() {
               style={{ height: 65 }}
               w="100%"
             >
-              <Text
-                color="gray.600"
-                fontSize="lg"
-                fontWeight="bold"
-              >
+              <Text color="gray.600" fontSize="lg" fontWeight="bold">
                 Produto
               </Text>
             </Flex>

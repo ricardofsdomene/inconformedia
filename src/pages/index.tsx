@@ -224,7 +224,7 @@ export default function Index() {
                     py="10"
                   >
                     <Image
-                      src="https://o.remove.bg/downloads/15705da8-87b7-41ad-82a9-83ad0efa0e4c/Screen_Shot_2022-05-08_at_3.56.52_PM-removebg-preview.png"
+                      src="http://localhost:5556/images/inconformedia.png"
                       w="45"
                       h="45"
                       mr="2"
