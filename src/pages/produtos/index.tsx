@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { AiFillAmazonSquare, AiFillCloud } from "react-icons/ai";
 import { BiInfoCircle, BiListPlus, BiUserPlus } from "react-icons/bi";
-import { FiArrowUpCircle } from "react-icons/fi";
+import { FiArrowUpCircle, FiChevronDown } from "react-icons/fi";
 import {
   RiInformationFill,
   RiLineFill,
@@ -49,7 +49,7 @@ export default function Produtos() {
       >
         <Flex flexDir="row" align="center">
           <Image
-            src="https://o.remove.bg/downloads/15705da8-87b7-41ad-82a9-83ad0efa0e4c/Screen_Shot_2022-05-08_at_3.56.52_PM-removebg-preview.png"
+            src="http://localhost:5556/images/inconformedia.png"
             w="45"
             h="45"
             mr="2"
@@ -323,12 +323,12 @@ export default function Produtos() {
   return (
     <>
       <Header />
-      <Flex flexDir="column" style={{ paddingTop: 80 }} p="4" bg="#eee">
+      <Flex flexDir="column" style={{ paddingTop: 80 }} pl="4" bg="#eee">
         {!isWideVersion && (
           <>
             <Paths />
-            <Flex align="center" justify="space-between">
-              <Flex flexDir="column">
+            <Flex flexDir="row" justify="space-between" alignItems="center">
+            <Flex flexDir="column">
                 <Text mt="5" color="#333" fontSize="md">
                   Dados de
                 </Text>
@@ -336,14 +336,61 @@ export default function Produtos() {
                   Produtos
                 </Text>
               </Flex>
-              <Text fontSize="4xl" mt="4" ml="4"></Text>
-            </Flex>
+          <Menu>
+            <MenuButton mt="4" mr="4" style={{ height: 40 }}>
+              <Flex
+                flexDir="row"
+                borderRadius="5"
+                justify="center"
+                align="center"
+                style={{ width: 100, height: 40 }}
+                bg="#FFF"
+              >
+                <Text color="#555">7 dias</Text>
+                <Icon as={FiChevronDown} fontSize="16" color="#555" ml="2" />
+              </Flex>
+            </MenuButton>
+            <MenuList bg="#FFF" py="0">
+              <MenuItem
+                justifyContent="space-between"
+                py="4"
+                onClick={() => {
+                  onOpen();
+                }}
+                color="#333"
+                fontSize="sm"
+              >
+                14 dias
+              </MenuItem>
+              <MenuItem
+                justifyContent="space-between"
+                py="4"
+                onClick={() => {
+                  onOpen();
+                }}
+                color="#333"
+                fontSize="sm"
+              >
+                30 dias
+              </MenuItem>
+              <MenuItem
+                justifyContent="space-between"
+                py="4"
+                onClick={() => {
+                  onOpen();
+                }}
+                color="#333"
+                fontSize="sm"
+              >
+                Histórico
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
             <Flex overflow="auto">
               <Flex
-                bg="#e0e0e0"
                 mt="4"
-                p="4"
-                pb="5"
+                pb="1"
                 borderRadius="5"
               >
                 <Flex
@@ -351,12 +398,12 @@ export default function Produtos() {
                   flexDir="column"
                   borderRadius="12"
                   bg="#333"
-                  p="10"
+                  p="5"
                   justify="center"
                   style={{ height: 200, width: 200 }}
                 >
                   <Flex style={{ width: 30, height: 30 }} borderRadius="full">
-                    <Icon as={AiFillCloud} fontSize="20" color="#FFF" />
+                    <Icon as={AiFillCloud} fontSize="33" color="#FFF" />
                   </Flex>
                   <Flex mt="2">
                     <Text color="#eee">Faturamento</Text>
@@ -384,12 +431,12 @@ export default function Produtos() {
                   flexDir="column"
                   borderRadius="12"
                   bg="#333"
-                  p="10"
+                  p="5"
                   justify="center"
                   style={{ height: 200, width: 200 }}
                 >
                   <Flex style={{ width: 30, height: 30 }} borderRadius="full">
-                    <Icon as={AiFillCloud} fontSize="20" color="#FFF" />
+                    <Icon as={AiFillCloud} fontSize="33" color="#FFF" />
                   </Flex>
                   <Flex mt="2">
                     <Text color="#eee">Assinantes</Text>
@@ -417,12 +464,12 @@ export default function Produtos() {
                   flexDir="column"
                   borderRadius="12"
                   bg="#333"
-                  p="10"
+                  p="5"
                   justify="center"
                   style={{ height: 200, width: 200 }}
                 >
                   <Flex style={{ width: 30, height: 30 }} borderRadius="full">
-                    <Icon as={AiFillCloud} fontSize="20" color="#FFF" />
+                    <Icon as={AiFillCloud} fontSize="33" color="#FFF" />
                   </Flex>
                   <Flex mt="2">
                     <Text color="#eee">Assinantes</Text>
