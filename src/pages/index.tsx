@@ -53,6 +53,8 @@ export default function Index() {
     lg: true,
   });
 
+  // envio de pedido / suuporte por telefone / mensagens notifications / meios de comunicaco que utilizam diariamente / varios dispositivos / chat bots / agentes / whatsapp / facebook / messenger / instagram / telegram / sms
+
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -115,7 +117,7 @@ export default function Index() {
 
   function Apresentation() {
     return (
-      <Flex flexDir="column" pt="5" mx="auto" maxWidth={1000}>
+      <Flex flexDir="column" pt="5" mx="auto" w={size.width - 50} maxWidth={1000}>
         <Text
           color="#333"
           fontWeight="bold"
@@ -144,6 +146,7 @@ export default function Index() {
         </Flex>
         <Flex mt="10" justify="center" align="center">
           <Image
+          w={size.width - 50}
             maxW={1000}
             mx="auto"
             borderRadius="5"
@@ -172,10 +175,10 @@ export default function Index() {
         flexDir="column"
         borderRadius="5"
         p="5"
-        mt="5"
+        mt="10"
         mx="auto"
         bg="#000"
-        w="100%"
+        w={size.width - 50}
         maxWidth={1000}
       >
         <Text color="#FFF" fontWeight="bold" fontSize="4xl">
@@ -210,7 +213,7 @@ export default function Index() {
         p="5"
         mt="5"
         mx="auto"
-        w="100%"
+        w={size.width - 50}
         maxWidth={1000}
         boxShadow="rgba(0,0,0,0.1) 0 0 10px"
       >
