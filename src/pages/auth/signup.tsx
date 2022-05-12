@@ -52,10 +52,10 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if(user) {
-      router.push("/landing")
+    if (user !== null) {
+      router.push("/landing");
     }
-  }, [user])
+  }, [user]);
 
   async function handleSignUp() {
     const response = await signUp({ name, email, password });
@@ -213,8 +213,7 @@ export default function SignUp() {
                     status: "error",
                     description: "Voce precisa inserir seu nome completo",
                   });
-                }
-                else if (!email) {
+                } else if (!email) {
                   toast({
                     status: "error",
                     description: "Voce precisa inserir seu email",

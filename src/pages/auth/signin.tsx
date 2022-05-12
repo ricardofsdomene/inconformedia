@@ -51,6 +51,12 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if(user !== null) {
+      router.push("/")
+    }
+  }, [user])
+
   async function handleSignIn() {
     const response = await signIn({ email, password });
     console.log(response);
