@@ -21,11 +21,23 @@ type SignInCredentials = {
   password: string;
 };
 
+type SignInResponse = {
+  status?: string;
+  message?: string;
+  error?: boolean;
+}
+
 type SignUpCredentials = {
   name: string;
   email: string;
   password: string;
 };
+
+type SignUpResponse = {
+  status?: string;
+  message?: string;
+  error?: string;
+}
 
 type TUpdate = {
   id: string;
@@ -34,8 +46,8 @@ type TUpdate = {
 };
 
 type AuthContextData = {
-  signIn: (credentials: SignInCredentials) => Promise<void>;
-  signUp: (credentials: SignUpCredentials) => Promise<void>;
+  signIn: (credentials: SignInCredentials) => Promise<SignInResponse>;
+  signUp: (credentials: SignUpCredentials) => Promise<SignUpResponse>;
   signOut: () => void;
   user: User;
   isAuthenticated: boolean;
@@ -56,7 +68,7 @@ export function signOut() {
 
   authChannel.postMessage("signOut");
 
-  Router.push("/auth");
+  // Router.push("/");
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
@@ -70,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { "nextauth.token": token } = parseCookies();
 
     if (!token) {
-      router.push("/landing");
+      // router.push("/landing");
     } else if (token) {
       // Verify if token is valid
       // Verify _id permissions and roles 2Check
@@ -81,7 +93,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (!res.data) {
           destroyCookie(undefined, "nextauth.token");
           destroyCookie(undefined, "nextauth.refreshToken");
-          router.push("/auth");
+          // router.push("/auth");
         } else {
           setUser(res.data);
         }
@@ -99,12 +111,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (user) {
       if (user.email !== "ricardofsdomene@icloud.com") {
         if (router.pathname === "/dashboard") {
-          router.push("/");
+          // router.push("/");
         }
       }
 
       if (router.pathname === "/auth") {
-        router.push("/");
+        // router.push("/");
       }
     }
   }, [router, user]);
@@ -134,7 +146,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         response.data;
 
       if (response.data.error) {
-        return response.data.message;
+        return response.data;
       } else {
         setCookie(undefined, "nextauth.token", token, {
           maxAge: 60 * 60 * 24 * 30, // 30 days
@@ -157,14 +169,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         Router.push("/");
 
-        return "Usuario autenticado com sucesso";
+        return { status: "Sucesso!", message: "Usuario autenticado com sucesso" };
       }
     } catch (error) {
-      return "Tente novamente mais tarde";
+      return { status: "Erro!", error: "Tente novamente mais tarde" };
     }
   }
 
-  async function signUp({ name, email, password }: SignUpCredentials) {
+  async function signUp({ name, email, password }: SignUpCredentials): Promise<SignUpResponse> {
     try {
       const response = await api.post("/auth/register", {
         name,
@@ -205,13 +217,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
           Router.push("/");
 
-          return "Usuario autenticado com sucesso";
+          return { status: "Sucesso!", message: "Usuario autenticado com sucesso" };
         }
       } else {
-        return "Dados invalidos";
+        if (response.data.status === "Erro!") {
+          return response.data;
+        } else {
+          return { status: "Erro!", error: "Dados invalidos" };
+        }
       }
     } catch (error) {
-      return "Tente novamente mais tarde";
+      return { status: "Erro!", error: "Tente novamente mais tarde" };
     }
   }
 
@@ -240,7 +256,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     authChannel.postMessage("signOut");
 
-    Router.push("/auth");
+    Router.push("/");
   }
 
   return (

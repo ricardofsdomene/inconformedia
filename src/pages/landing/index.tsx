@@ -28,8 +28,8 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { BiListPlus, BiUserPlus } from "react-icons/bi";
+import React, { useContext, useEffect, useState } from "react";
+import { BiListPlus, BiLogOut, BiUserPlus } from "react-icons/bi";
 import { FiChevronDown, FiPlusSquare } from "react-icons/fi";
 import {
   RiArrowDropDownFill,
@@ -38,8 +38,11 @@ import {
   RiSearch2Line,
   RiShareLine,
 } from "react-icons/ri";
+import { AuthContext, signOut } from "../../contexts/AuthContext";
 
 export default function Landing() {
+  const { signOut } = useContext(AuthContext);
+
   const { onOpen, isOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -254,13 +257,13 @@ export default function Landing() {
                 justifyContent="space-between"
                 py="4"
                 onClick={() => {
-                  onOpen();
+                  signOut();
                 }}
                 color="#333"
                 fontSize="sm"
               >
-                Feature
-                <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
+                Sair da sua conta
+                <Icon as={BiLogOut} fontSize="md" color="#facebook.400" />
               </MenuItem>
             </MenuList>
           </Menu>
@@ -1205,10 +1208,8 @@ export default function Landing() {
               </Text>
             </Flex>
             <Banner />
-            <Projects />
             <Dashboard />
             <Products />
-            <Messages />
           </>
         )}
       </Flex>
