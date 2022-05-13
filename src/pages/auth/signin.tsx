@@ -53,7 +53,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if(user !== null) {
-      router.push("/")
+      router.push("/dashboard")
     }
   }, [user])
 
@@ -121,7 +121,7 @@ export default function SignUp() {
         >
           <Flex align="center">
             <Image
-              src="http://192.168.0.20:5556/images/inconformedia.png"
+              src="https://b3d9-2804-14c-3f89-8b76-3a9b-1d36-2289-6d9d.sa.ngrok.io/images/inconformedia.png"
               w="45"
               h="45"
               ml={-5}

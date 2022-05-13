@@ -367,9 +367,6 @@ export default function Index() {
             CNPJ nº. 11.233.455/0000-22
           </Text>
           <Text color="#555" fontSize="sm">
-            Endereço: Rua 7 de setembro Anapolis - GO
-          </Text>
-          <Text color="#555" fontSize="sm">
             Contato: uppernodes@gmail.com
           </Text>
         </Text>

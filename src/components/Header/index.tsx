@@ -2,7 +2,7 @@ import { Flex, Icon, Image } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { RiUserLine } from "react-icons/ri";
+import { RiCloseFill, RiUserLine } from "react-icons/ri";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
@@ -24,17 +24,17 @@ export default function Header() {
           bg="#FFF"
         ></Flex>
       )}
-      <Flex align="center" px="4" bg="#FFF" w="100vw" style={{ height: 80 }}>
+      <Flex align="center" px="4" bg="#fafafa" w="100vw" style={{ height: 80 }}>
         <Flex justify="space-between" w="100%" mx="auto" maxW={1000}>
           <Flex align="center">
             <Image
-              src="http://localhost:5556/images/inconformedia.png"
+              src="https://b3d9-2804-14c-3f89-8b76-3a9b-1d36-2289-6d9d.sa.ngrok.io/images/inconformedia.png"
               w="45"
               h="45"
               mr="2"
             />
             <Text fontWeight="bold" color="#000">
-            uppernodes
+              uppernodes
             </Text>
           </Flex>
           <Flex align="center">
@@ -51,7 +51,7 @@ export default function Header() {
                 align="center"
               >
                 <Text color="#FFF" fontSize="14" fontWeight="bold">
-                  Iniciar
+                  Entrar
                 </Text>
               </Flex>
             </Link>
@@ -62,15 +62,23 @@ export default function Header() {
               flexDir="column"
               ml="4"
             >
-              <div style={{ height: 2, width: 20, backgroundColor: "#000" }} />
-              <div
-                style={{
-                  height: 2,
-                  width: 20,
-                  marginTop: 5,
-                  backgroundColor: "#000",
-                }}
-              />
+              {menu ? (
+                <Icon as={RiCloseFill} color="#000" fontSize="20" />
+              ) : (
+                <>
+                  <div
+                    style={{ height: 2, width: 20, backgroundColor: "#000" }}
+                  />
+                  <div
+                    style={{
+                      height: 2,
+                      width: 20,
+                      marginTop: 5,
+                      backgroundColor: "#000",
+                    }}
+                  />
+                </>
+              )}
             </Flex>
           </Flex>
         </Flex>

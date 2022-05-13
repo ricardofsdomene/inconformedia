@@ -238,7 +238,7 @@ export default function Landing() {
                 color="#333"
                 fontSize="sm"
               >
-                {user.name.split(" ")[0] + user.name.split(" ")[user.name.split(" ").length - 1]}
+                {user && user.name.split(" ")[0] + user.name.split(" ")[user.name.split(" ").length - 1]}
                 <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
               </MenuItem>
               <MenuItem
