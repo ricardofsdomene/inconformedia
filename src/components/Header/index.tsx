@@ -28,7 +28,7 @@ export default function Header() {
         <Flex justify="space-between" w="100%" mx="auto" maxW={1000}>
           <Flex align="center">
             <Image
-              src="https://b3d9-2804-14c-3f89-8b76-3a9b-1d36-2289-6d9d.sa.ngrok.io/images/inconformedia.png"
+              src="https://a174-2804-14c-3f89-8b76-e362-b2de-f80b-8737.sa.ngrok.io/images/inconformedia.png"
               w="45"
               h="45"
               mr="2"

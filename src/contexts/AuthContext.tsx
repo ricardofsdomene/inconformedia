@@ -25,7 +25,7 @@ type SignInResponse = {
   status?: string;
   message?: string;
   error?: boolean;
-}
+};
 
 type SignUpCredentials = {
   name: string;
@@ -37,7 +37,7 @@ type SignUpResponse = {
   status?: string;
   message?: string;
   error?: string;
-}
+};
 
 type TUpdate = {
   id: string;
@@ -82,7 +82,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { "nextauth.token": token } = parseCookies();
 
     if (!token) {
-      // router.push("/landing");
+      if (router.pathname === "/auth/signin") {
+        //
+      } else if (router.pathname === "/auth/signup") {
+        //
+      } else {
+        router.push("/")
+      }
     } else if (token) {
       // Verify if token is valid
       // Verify _id permissions and roles 2Check
@@ -93,9 +99,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (!res.data) {
           destroyCookie(undefined, "nextauth.token");
           destroyCookie(undefined, "nextauth.refreshToken");
-          // router.push("/auth");
+          router.push("/");
         } else {
           setUser(res.data);
+          router.push("/dashboard");
         }
       });
 
@@ -106,20 +113,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      if (user.email !== "ricardofsdomene@icloud.com") {
-        if (router.pathname === "/dashboard") {
-          // router.push("/");
-        }
-      }
-
-      if (router.pathname === "/auth") {
-        // router.push("/");
-      }
-    }
-  }, [router, user]);
 
   useEffect(() => {
     authChannel = new BroadcastChannel("auth");
@@ -169,14 +162,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         Router.push("/");
 
-        return { status: "Sucesso!", message: "Usuario autenticado com sucesso" };
+        return {
+          status: "Sucesso!",
+          message: "Usuario autenticado com sucesso",
+        };
       }
     } catch (error) {
       return { status: "Erro!", error: "Tente novamente mais tarde" };
     }
   }
 
-  async function signUp({ name, email, password }: SignUpCredentials): Promise<SignUpResponse> {
+  async function signUp({
+    name,
+    email,
+    password,
+  }: SignUpCredentials): Promise<SignUpResponse> {
     try {
       const response = await api.post("/auth/register", {
         name,
@@ -217,7 +217,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
           Router.push("/");
 
-          return { status: "Sucesso!", message: "Usuario autenticado com sucesso" };
+          return {
+            status: "Sucesso!",
+            message: "Usuario autenticado com sucesso",
+          };
         }
       } else {
         if (response.data.status === "Erro!") {

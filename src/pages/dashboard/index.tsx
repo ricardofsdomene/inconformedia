@@ -20,6 +20,7 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
+  Spinner,
   StatArrow,
   StatGroup,
   useBreakpointValue,
@@ -99,7 +100,7 @@ export default function Landing() {
               <Menu>
                 <MenuButton>
                   <Text fontSize="md" cursor="pointer" color="#000">
-                  uppernodes
+                    uppernodes
                   </Text>
                 </MenuButton>
                 <MenuList zIndex="2" bg="#eee" py="0">
@@ -144,7 +145,7 @@ export default function Landing() {
               <Menu>
                 <MenuButton ml="7">
                   <Text fontSize="md" cursor="pointer" color="#000">
-                  uppernodes
+                    uppernodes
                   </Text>
                 </MenuButton>
                 <MenuList zIndex="2" bg="#eee" py="0">
@@ -238,7 +239,10 @@ export default function Landing() {
                 color="#333"
                 fontSize="sm"
               >
-                {user && user.name.split(" ")[0] + user.name.split(" ")[user.name.split(" ").length - 1]}
+                {user &&
+                  user.name.split(" ")[0] +
+                    " " +
+                    user.name.split(" ")[user.name.split(" ").length - 1]}
                 <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
               </MenuItem>
               <MenuItem
@@ -1053,7 +1057,12 @@ export default function Landing() {
                               {projeto.name}
                             </Text>
                             <Flex align="center">
-                              <Flex bg="#eee" borderRadius="full" py="0.5" px="4">
+                              <Flex
+                                bg="#eee"
+                                borderRadius="full"
+                                py="0.5"
+                                px="4"
+                              >
                                 <Text fontSize="sm" color="#333">
                                   {projeto.status}
                                 </Text>
@@ -1183,6 +1192,14 @@ export default function Landing() {
         }}
         bg="#e0e0e0"
       ></Flex>
+    );
+  }
+
+  if (!user) {
+    return (
+      <Flex justify="center" align="center" h="100vh" w="100vw">
+        <Spinner size="xl" color="#42ba96" />
+      </Flex>
     );
   }
 
