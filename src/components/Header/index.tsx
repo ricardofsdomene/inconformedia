@@ -7,6 +7,10 @@ import { RiUserLine } from "react-icons/ri";
 export default function Header() {
   const [menu, setMenu] = useState(false);
 
+  // LUMCuagNtbEyvS4 mdb
+  // dimitrious mdb.user
+  // rXK9z3eU9MZbhPRE mdb.password
+
   return (
     <>
       {menu && (
@@ -30,7 +34,7 @@ export default function Header() {
               mr="2"
             />
             <Text fontWeight="bold" color="#000">
-              Inconformedia
+            uppernodes
             </Text>
           </Flex>
           <Flex align="center">
@@ -38,7 +42,7 @@ export default function Header() {
             <Link href="/auth/signup">
               <Flex
                 cursor="pointer"
-                bg="#000"
+                bg="#F00066"
                 px="4"
                 py="2"
                 ml="4"
@@ -47,7 +51,7 @@ export default function Header() {
                 align="center"
               >
                 <Text color="#FFF" fontSize="14" fontWeight="bold">
-                  Sign Up
+                  Iniciar
                 </Text>
               </Flex>
             </Link>

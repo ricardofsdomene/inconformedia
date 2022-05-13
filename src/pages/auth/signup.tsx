@@ -98,7 +98,7 @@ export default function SignUp() {
   }
 
   return (
-    <Flex maxH={size.height} h="100vh" bg="#eee">
+    <Flex maxH={size.height} h="100vh" bg="#fafafa">
       <Head>
         <meta
           name="viewport"
