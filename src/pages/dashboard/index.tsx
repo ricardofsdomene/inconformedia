@@ -39,6 +39,7 @@ import {
   RiSearch2Line,
   RiShareLine,
 } from "react-icons/ri";
+import TopNav from "../../components/TopNav";
 import { AuthContext, signOut } from "../../contexts/AuthContext";
 
 export default function Landing() {
@@ -70,7 +71,6 @@ export default function Landing() {
         zIndex="1000"
         position="fixed"
         style={{ height: 80, width: "100vw" }}
-        bg="#eee"
         align="center"
         mx="auto"
         p="5"
@@ -100,7 +100,7 @@ export default function Landing() {
               <Menu>
                 <MenuButton>
                   <Text fontSize="md" cursor="pointer" color="#000">
-                    uppernodes
+                    Adicionar
                   </Text>
                 </MenuButton>
                 <MenuList zIndex="2" bg="#eee" py="0">
@@ -113,7 +113,7 @@ export default function Landing() {
                     color="#333"
                     fontSize="sm"
                   >
-                    Feature
+                    Curso
                     <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
                   </MenuItem>
                   <MenuItem
@@ -125,65 +125,8 @@ export default function Landing() {
                     color="#333"
                     fontSize="sm"
                   >
-                    Feature
+                    Instrutor
                     <Icon as={BiUserPlus} fontSize="md" color="#facebook.400" />
-                  </MenuItem>
-                  <MenuItem
-                    justifyContent="space-between"
-                    py="4"
-                    onClick={() => {
-                      onOpen();
-                    }}
-                    color="#333"
-                    fontSize="sm"
-                  >
-                    Feature
-                    <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-              <Menu>
-                <MenuButton ml="7">
-                  <Text fontSize="md" cursor="pointer" color="#000">
-                    uppernodes
-                  </Text>
-                </MenuButton>
-                <MenuList zIndex="2" bg="#eee" py="0">
-                  <MenuItem
-                    justifyContent="space-between"
-                    py="4"
-                    onClick={() => {
-                      onOpen();
-                    }}
-                    color="#333"
-                    fontSize="sm"
-                  >
-                    Feature
-                    <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
-                  </MenuItem>
-                  <MenuItem
-                    justifyContent="space-between"
-                    py="4"
-                    onClick={() => {
-                      onOpen();
-                    }}
-                    color="#333"
-                    fontSize="sm"
-                  >
-                    Feature
-                    <Icon as={BiUserPlus} fontSize="md" color="#facebook.400" />
-                  </MenuItem>
-                  <MenuItem
-                    justifyContent="space-between"
-                    py="4"
-                    onClick={() => {
-                      onOpen();
-                    }}
-                    color="#333"
-                    fontSize="sm"
-                  >
-                    Feature
-                    <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -224,10 +167,7 @@ export default function Landing() {
           </Menu>
           <Menu>
             <MenuButton>
-              <Avatar
-                name={user ? user.name : "A"}
-                size={isWideVersion ? "md" : "sm"}
-              />
+              <Avatar name={user ? user.name : "A"} size="sm" />
             </MenuButton>
             <MenuList zIndex="2" bg="#eee" py="0">
               <MenuItem
@@ -244,18 +184,6 @@ export default function Landing() {
                     " " +
                     user.name.split(" ")[user.name.split(" ").length - 1]}
                 <Icon as={BiListPlus} fontSize="md" color="#facebook.400" />
-              </MenuItem>
-              <MenuItem
-                justifyContent="space-between"
-                py="4"
-                onClick={() => {
-                  onOpen();
-                }}
-                color="#333"
-                fontSize="sm"
-              >
-                Feature
-                <Icon as={BiUserPlus} fontSize="md" color="#facebook.400" />
               </MenuItem>
               <MenuItem
                 justifyContent="space-between"
@@ -1205,8 +1133,8 @@ export default function Landing() {
 
   return (
     <>
-      <Header />
-      <Flex flexDir="column" style={{ paddingTop: 80 }} p="4" bg="#eee">
+      <TopNav />
+      <Flex flexDir="column" style={{ paddingTop: 80 }} p="4">
         {!isWideVersion && (
           <>
             <Paths />

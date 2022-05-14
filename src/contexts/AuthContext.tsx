@@ -102,7 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           router.push("/");
         } else {
           setUser(res.data);
-          router.push("/dashboard");
+          // router.push("/dashboard");
         }
       });
 
@@ -160,7 +160,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-        Router.push("/");
+        Router.push("/dashboard");
 
         return {
           status: "Sucesso!",

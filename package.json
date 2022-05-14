@@ -27,6 +27,7 @@
     "react-hook-form": "^7.28.0",
     "react-icons": "^4.3.1",
     "react-input-mask": "^2.0.4",
+    "react-number-format": "^4.9.3",
     "react-player": "^2.10.1",
     "react-query": "^3.34.16",
     "styled-components": "^5.3.5",
