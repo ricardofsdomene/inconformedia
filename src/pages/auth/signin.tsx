@@ -131,7 +131,7 @@ export default function SignUp() {
             />
             <Flex flexDir="column">
               <Text fontSize="22" fontWeight="bold" color="#000">
-                Inconformedia
+                Uppernodes
               </Text>
               <Text fontSize="sm" color="#000">
                 powered by uppernodes
