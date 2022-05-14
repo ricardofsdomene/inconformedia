@@ -32,7 +32,7 @@ import {
 } from "react-icons/ri";
 import { AuthContext } from "../../contexts/AuthContext";
 
-export default function SignUp() {
+export default function Forgot() {
   const { user, signIn, signUp } = useContext(AuthContext);
 
   const router = useRouter();
@@ -45,34 +45,7 @@ export default function SignUp() {
 
   const size = useWindowSize();
 
-  const [login, setLogin] = useState(false);
-
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    if (user) {
-      if (user._id) {
-        router.push("/dashboard");
-      }
-    }
-  }, [user]);
-
-  async function handleSignUp() {
-    const response = await signUp({ name, email, password });
-    if (response.status === "Erro!") {
-      toast({
-        status: "error",
-        description: response.error,
-      });
-    } else {
-      toast({
-        status: "success",
-        description: response.message,
-      });
-    }
-  }
 
   function useWindowSize() {
     const [windowSize, setWindowSize] = useState({
@@ -153,7 +126,7 @@ export default function SignUp() {
             bg="#FFF"
           >
             <Text color="#777" fontSize="xl" fontWeight="bold">
-              Crie sua conta
+              Recuperar sua conta
             </Text>
 
             <Input
@@ -164,79 +137,23 @@ export default function SignUp() {
                 width: "100%",
                 border: "1px solid #e0e0e0",
               }}
-              autoCapitalize="words"
               mt="4"
-              placeholder="Seu nome completo"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setName(e.target.value);
-              }}
-            />
-            <Input
-              fontSize="sm"
-              color="#333"
-              style={{
-                height: 50,
-                width: "100%",
-                border: "1px solid #e0e0e0",
-              }}
-              mt="4"
-              type="email"
+              autoCapitalize="none"
               placeholder="Digite seu email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setEmail(e.target.value);
               }}
             />
 
-            <Input
-              fontSize="sm"
-              color="#333"
-              style={{
-                height: 50,
-                width: "100%",
-                border: "1px solid #e0e0e0",
-              }}
-              mt="4"
-              placeholder="Sua senha"
-              type="password"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPassword(e.target.value);
-              }}
-            />
-
-            <Text mt="4" fontSize="xs" color="#aaa">
-              Ao se registrar, voce concorda que leu e que aceita os nossos
-              Termos de Servico e Politica de Privacidade.
-            </Text>
             <Flex
               onClick={() => {
-                if (!name) {
-                  toast({
-                    status: "error",
-                    description: "Voce precisa inserir seu nome completo",
-                  });
-                } else if (!name.split(" ")[1]) {
-                  toast({
-                    status: "error",
-                    description: "Voce precisa inserir seu nome completo",
-                  });
-                } else if (!email) {
+                if (!email) {
                   toast({
                     status: "error",
                     description: "Voce precisa inserir seu email",
                   });
-                } else if (!password) {
-                  toast({
-                    status: "error",
-                    description: "Voce precisa inserir sua senha",
-                  });
-                } else if (password.length < 8) {
-                  toast({
-                    status: "error",
-                    description: "Sua senha precisa de pelo menos 8 digitos",
-                  });
-                }
-                if (name && name.split(" ")[1] && email && password) {
-                  handleSignUp();
+                } else {
+                  //
                 }
               }}
               _hover={{
@@ -258,55 +175,6 @@ export default function SignUp() {
             >
               Continuar
             </Flex>
-            <Text mt="4" fontSize="xs" color="#aaa">
-              OU
-            </Text>
-            <Flex
-              style={{
-                height: 50,
-                width: "100%",
-              }}
-              cursor="pointer"
-              mt="4"
-              bg="#FFF"
-              color="#333"
-              boxShadow="rgba(0,0,0,0.1) 0 0 10px"
-              borderRadius="5"
-              justify="center"
-              align="center"
-            >
-              <Icon
-                as={RiGoogleFill}
-                mt={-1}
-                mr="2"
-                color="#000"
-                fontSize="18"
-              />
-              <Text>Continuar com Google</Text>
-            </Flex>
-            <Flex
-              style={{
-                height: 50,
-                width: "100%",
-              }}
-              cursor="pointer"
-              mt="4"
-              bg="#FFF"
-              color="#333"
-              boxShadow="rgba(0,0,0,0.1) 0 0 10px"
-              borderRadius="5"
-              justify="center"
-              align="center"
-            >
-              <Icon
-                as={RiAppleFill}
-                mt={-1}
-                mr="2"
-                color="#000"
-                fontSize="18"
-              />
-              <Text>Continuar com Apple</Text>
-            </Flex>
 
             <div
               style={{
@@ -316,11 +184,21 @@ export default function SignUp() {
                 marginTop: 20,
               }}
             />
-            <Link href="/auth/signin">
-              <Text color="#0000aa" cursor="pointer" fontSize="sm" mt="4">
-                Entrar na sua conta
+            <Flex justify="space-around" w="100%">
+              <Link href="/auth/signin">
+                <Text cursor="pointer" color="#0000aa" fontSize="sm" mt="4">
+                  Entrar
+                </Text>
+              </Link>
+              <Text ml="15" color="#0000aa" fontSize="sm" mt="4">
+                •
               </Text>
-            </Link>
+              <Link href="/auth/signup">
+                <Text cursor="pointer" color="#0000aa" fontSize="sm" mt="4">
+                  Criar sua conta
+                </Text>
+              </Link>
+            </Flex>
           </Flex>
           <Flex
             borderTop="1px solid #e0e0e0"

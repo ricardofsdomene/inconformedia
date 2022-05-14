@@ -67,7 +67,7 @@ export default function SignUp() {
         status: "error",
         description: response.message,
       });
-    } else if (response.status === "Sucesso!")  {
+    } else if (response.status === "Sucesso!") {
       toast({
         status: "success",
         description: response.message,
@@ -130,12 +130,16 @@ export default function SignUp() {
               mr="2"
             />
             <Flex flexDir="column">
-              <Text fontSize="22" fontWeight="bold" color="#000">
-                Uppernodes
-              </Text>
-              <Text fontSize="sm" color="#000">
-                powered by uppernodes
-              </Text>
+              <Link href="/">
+                <Text
+                  cursor="pointer"
+                  fontSize="22"
+                  fontWeight="bold"
+                  color="#000"
+                >
+                  Uppernodes
+                </Text>
+              </Link>
             </Flex>
           </Flex>
           <Flex
@@ -283,9 +287,11 @@ export default function SignUp() {
               }}
             />
             <Flex justify="space-around" w="100%">
-              <Text color="#0000aa" fontSize="sm" mt="4">
-                Problemas ao entrar?
-              </Text>
+              <Link href="/auth/forgot">
+                <Text cursor="pointer" color="#0000aa" fontSize="sm" mt="4">
+                  Problemas ao entrar?
+                </Text>
+              </Link>
               <Text color="#0000aa" fontSize="sm" mt="4">
                 •
               </Text>

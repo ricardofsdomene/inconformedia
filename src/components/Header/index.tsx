@@ -1,10 +1,21 @@
-import { Flex, Icon, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Icon,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RiCloseFill, RiUserLine } from "react-icons/ri";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Header() {
+  const { user } = useContext(AuthContext);
+
   const [menu, setMenu] = useState(false);
 
   // LUMCuagNtbEyvS4 mdb
@@ -25,7 +36,13 @@ export default function Header() {
         ></Flex>
       )}
       <Flex align="center" px="4" bg="#fafafa" w="100vw" style={{ height: 80 }}>
-        <Flex justify="space-between" w="100%" mx="auto" maxW={1000}>
+        <Flex
+          justify="space-between"
+          align="center"
+          w="100%"
+          mx="auto"
+          maxW={1000}
+        >
           <Flex align="center">
             <Image
               src="https://a174-2804-14c-3f89-8b76-e362-b2de-f80b-8737.sa.ngrok.io/images/inconformedia.png"
@@ -38,7 +55,70 @@ export default function Header() {
             </Text>
           </Flex>
           <Flex align="center">
-            <Icon as={RiUserLine} cursor="pointer" color="#000" fontSize="20" />
+            <Menu>
+              <MenuButton ml="5" mt="2">
+                <Icon
+                  as={RiUserLine}
+                  cursor="pointer"
+                  color="#000"
+                  fontSize="20"
+                />
+              </MenuButton>
+              <MenuList bg="#f0f0f0" border="0px solid transparent" py="0">
+              <MenuItem
+                  _hover={{
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: 5,
+                  }}
+                  justifyContent="space-between"
+                  py="4"
+                  onClick={() => {}}
+                  color="#333"
+                  fontSize="sm"
+                >
+                  Quero armazenar leads
+                </MenuItem>
+                <MenuItem
+                  _hover={{
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: 5,
+                  }}
+                  justifyContent="space-between"
+                  py="4"
+                  onClick={() => {}}
+                  color="#333"
+                  fontSize="sm"
+                >
+                  Quero vender meu curso
+                </MenuItem>
+                <MenuItem
+                  _hover={{
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: 5,
+                  }}
+                  justifyContent="space-between"
+                  py="4"
+                  onClick={() => {}}
+                  color="#333"
+                  fontSize="sm"
+                >
+                  Quero vender meu ebook
+                </MenuItem>
+                <MenuItem
+                  _hover={{
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: 5,
+                  }}
+                  justifyContent="space-between"
+                  py="4"
+                  onClick={() => {}}
+                  color="#333"
+                  fontSize="sm"
+                >
+                  Quero criar paginas de vendas
+                </MenuItem>
+              </MenuList>
+            </Menu>
             <Link href="/auth/signup">
               <Flex
                 cursor="pointer"
@@ -51,7 +131,7 @@ export default function Header() {
                 align="center"
               >
                 <Text color="#FFF" fontSize="14" fontWeight="bold">
-                  Entrar
+                  {user && user._id ? "Dashboard" : "Entrar"}
                 </Text>
               </Flex>
             </Link>
