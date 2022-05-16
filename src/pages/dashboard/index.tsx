@@ -1042,31 +1042,34 @@ export default function Landing() {
   function Paths() {
     return (
       <Flex
+        pl="4"
         align="center"
         style={{
+          paddingTop: 100,
           paddingBottom: 20,
           width: "100%",
           top: 80,
         }}
-        justify="space-around"
         bg="#eee"
         borderBottom="1px solid #e0e0e0"
       >
         <Text
+          mr="4"
           color="#333"
+          textDecorationColor="red"
           textDecorationLine={
-            route.pathname === "/landing" ? "underline" : "none"
+            route.pathname === "/dashboard" ? "underline" : "none"
           }
         >
           Dashboard
         </Text>
         <Link href="/projetos">
-          <Text color="#333" cursor="pointer">
+          <Text color="#333" cursor="pointer" mr="4">
             Projetos
           </Text>
         </Link>
         <Link href="/produtos">
-          <Text color="#333" cursor="pointer">
+          <Text mr="4" color="#333" cursor="pointer">
             Produtos
           </Text>
         </Link>
@@ -1134,10 +1137,10 @@ export default function Landing() {
   return (
     <>
       <TopNav />
-      <Flex flexDir="column" style={{ paddingTop: 80 }} p="4">
+      <Paths />
+      <Flex flexDir="column" p="4">
         {!isWideVersion && (
           <>
-            <Paths />
             {search && <Search />}
             {searchResults && <SearchResults />}
             <Flex align="center" justify="space-between">

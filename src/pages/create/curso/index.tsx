@@ -7,15 +7,39 @@ import {
   MenuItem,
   MenuList,
   Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   useDisclosure,
+  useToast,
+  Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { BiChevronDown, BiListPlus, BiUserPlus } from "react-icons/bi";
+import { RiCloseFill } from "react-icons/ri";
 import NumberFormat from "react-number-format";
 import TopNav from "../../../components/TopNav";
 
 export default function Curso() {
+  type Curso = {
+    name: string;
+  };
+
+  const [name, setName] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [categoria, setCategoria] = useState("");
+
+  const [palavrasChave, setPalavrasChave] = useState([]);
+
+  const [modelos, setModelos] = useState([]);
+
+  const toast = useToast();
+
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -52,12 +76,64 @@ export default function Curso() {
 
   const size = useWindowSize();
 
-  const { onOpen } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  function handleCreateCurso() {
+    if (!name) {
+      toast({
+        status: "error",
+        position: "bottom-end",
+        description: "O seu curso precisa de um nome",
+      });
+    } else {
+      onOpen();
+    }
+  }
 
   function Model() {
     const [number, setNumber] = useState("");
     const [selected, setSelected] = useState("Gratuito");
-    const [metodo, setMetodo] = useState("Semanal");
+    const [tipo, setTipo] = useState<"Gratuito" | "Pago">("Gratuito");
+    const [metodo, setMetodo] = useState<
+      "Diario" | "Semanal" | "Mensal" | "Anual" | "Permanente"
+    >("Diario");
+
+    const [name, setName] = useState("");
+    const [valor, setValor] = useState(undefined);
+
+    const inputRef = useRef();
+
+    function handleCreateModelo() {
+      if (!name) {
+        toast({
+          position: "bottom-end",
+          status: "error",
+          description: "O modelo precisa de um nome",
+        });
+      } else if (tipo === "Pago") {
+        if (!valor) {
+          toast({
+            position: "bottom-end",
+            status: "error",
+            description: "Qual o valor?",
+          });
+        }
+      } else {
+        toast({
+          position: "bottom-end",
+          status: "success",
+          description: "Modelo adicionado com sucesso",
+        });
+        inputRef.current.value = "";
+        const modelo = {
+          name,
+          metodo,
+          valor,
+          tipo,
+        };
+        setModelos([...modelos, modelo]);
+      }
+    }
 
     function Item({ title }) {
       return (
@@ -101,7 +177,40 @@ export default function Curso() {
           </Flex>
           <Flex position="absolute" right={4}></Flex>
         </Flex>
+        <Flex mb="4">
+          {modelos.map((p, i) => {
+            return (
+              <Flex
+                borderRadius="5"
+                bg="#222"
+                mr="2"
+                style={{ height: 40 }}
+                px="4"
+                justify="center"
+                align="center"
+              >
+                <Text color="#fff">{p.metodo}</Text>
+                <Icon
+                  onClick={() => {
+                    const filter = modelos.filter((pa) => pa !== p);
+                    setTimeout(() => {
+                      setModelos(filter);
+                    }, 111);
+                  }}
+                  cursor="pointer"
+                  as={RiCloseFill}
+                  ml="4"
+                  color="#FFF"
+                />
+              </Flex>
+            );
+          })}
+        </Flex>
         <Input
+          ref={inputRef}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setName(e.target.value);
+          }}
           mb="4"
           placeholder="Nome do modelo"
           color="#000"
@@ -117,7 +226,7 @@ export default function Curso() {
               </Text>
               <NumberFormat
                 style={{
-                  width: 200,
+                  width: 150,
                   height: 40,
                   borderRadius: 5,
                   border: "2px solid #e0e0e0",
@@ -167,6 +276,17 @@ export default function Curso() {
                     color="#000"
                     fontSize="sm"
                   >
+                    Diario
+                  </MenuItem>
+                  <MenuItem
+                    justifyContent="space-between"
+                    py="4"
+                    onClick={() => {
+                      setMetodo("Semanal");
+                    }}
+                    color="#000"
+                    fontSize="sm"
+                  >
                     Semanal
                   </MenuItem>
                   <MenuItem
@@ -197,6 +317,9 @@ export default function Curso() {
           </Flex>
         )}
         <Flex
+          onClick={() => {
+            handleCreateModelo();
+          }}
           _hover={{
             opacity: 0.9,
           }}
@@ -221,8 +344,6 @@ export default function Curso() {
   }
 
   function Categoria() {
-    const [categoria, setCategoria] = useState("Marketing Digital");
-
     function Item({ title }) {
       return (
         <Flex
@@ -259,21 +380,71 @@ export default function Curso() {
   }
 
   function PalavrasChave() {
+    const [palavraChave, setPalavraChave] = useState("");
+    const inputRef = useRef();
+
     return (
       <>
         <Text mt="4" color="#000" fontWeight="bold">
           Palavras-chaves
         </Text>
+        <Flex mt={palavrasChave.length > 0 && "4"}>
+          {palavrasChave.map((p, i) => {
+            return (
+              <Flex
+                borderRadius="5"
+                bg="#222"
+                mr="2"
+                style={{ height: 40 }}
+                px="4"
+                justify="center"
+                align="center"
+              >
+                <Text color="#fff">{p}</Text>
+                <Icon
+                  onClick={() => {
+                    const filter = palavrasChave.filter((pa) => pa !== p);
+                    setTimeout(() => {
+                      setPalavrasChave(filter);
+                    }, 111);
+                  }}
+                  cursor="pointer"
+                  as={RiCloseFill}
+                  ml="4"
+                  color="#FFF"
+                />
+              </Flex>
+            );
+          })}
+        </Flex>
         <Input
           mt="4"
+          color="#333"
           style={{
             border: "2px solid #e0e0e0",
             height: 40,
             width: 200,
           }}
+          ref={inputRef}
+          value={palavraChave}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setPalavraChave(e.target.value);
+          }}
           placeholder="Insira uma nova palavra-chave"
         />
         <Flex
+          cursor="pointer"
+          onClick={(e) => {
+            if (palavraChave === "") {
+              toast({
+                status: "error",
+                description: "Voce precisa inserir o valor",
+                duration: 2000,
+              });
+            } else {
+              setPalavrasChave([...palavrasChave, palavraChave]);
+            }
+          }}
           mt="4"
           style={{
             height: 40,
@@ -304,7 +475,6 @@ export default function Curso() {
         w="100vw"
       >
         <Text
-          mt="4"
           color="#000"
           fontWeight="thin"
           fontFamily="sans-serif"
@@ -312,7 +482,7 @@ export default function Curso() {
         >
           Criar um novo curso
         </Text>
-        <Text color="#000" fontFamily="sans-serif" fontSize="md">
+        <Text color="#000" fontFamily="sans-serif" fontSize="xs">
           Um curso e formado por modulos, que por sua vez sao formados por audio
           video e texto.
         </Text>
@@ -320,17 +490,19 @@ export default function Curso() {
         <Flex w={size.width - 50} style={{ height: 1 }} bg="#eee" mt="4" />
 
         <Flex w="100vw" maxW={size.width - 50} mt="4">
-          <Flex mr="2" flexDir="column">
-            <Text color="#000" fontWeight="bold">
-              Instrutor
-            </Text>
-            <Input placeholder="" color="#000" style={{ width: 150 }} />
-          </Flex>
           <Flex flexDir="column">
             <Text color="#000" fontWeight="bold">
               Nome do curso
             </Text>
-            <Input placeholder="" color="#000" />
+            <Input
+              value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setName(e.target.value);
+              }}
+              placeholder=""
+              color="#000"
+              style={{ maxWidth: 400, width: size.width - 50 }}
+            />
           </Flex>
         </Flex>
 
@@ -339,6 +511,10 @@ export default function Curso() {
             Descricao (opcional)
           </Text>
           <Input
+            value={descricao}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setDescricao(e.target.value);
+            }}
             placeholder=""
             color="#000"
             style={{ maxWidth: 400, width: size.width - 50 }}
@@ -360,6 +536,9 @@ export default function Curso() {
         <div style={{ height: 70 }} />
       </Flex>
       <Flex
+        onClick={() => {
+          handleCreateCurso();
+        }}
         position="fixed"
         justify="center"
         align="center"
@@ -368,13 +547,47 @@ export default function Curso() {
         w="100vw"
         cursor="pointer"
         bg="#FFF"
-        
         style={{
           height: 70,
         }}
       >
-        <Text color="#000" fontWeight="bold">Adicionar curso</Text>
+        <Text color="#000" fontWeight="bold">
+          Adicionar curso
+        </Text>
       </Flex>
+
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color="#333">{name}</ModalHeader>
+          <ModalBody>
+            {descricao && (
+              <Text color="#333" fontWeight="bold" mb="1rem">
+                {descricao}
+              </Text>
+            )}
+
+            {categoria && (
+              <Text color="#333" fontWeight="bold" mb="1rem">
+                {categoria}
+              </Text>
+            )}
+
+            {palavrasChave &&
+              palavrasChave.map((p, i) => {
+                return (
+                  <Text color="#333" fontWeight="bold" mb="1rem">
+                    {p}
+                  </Text>
+                );
+              })}
+          </ModalBody>
+
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 }
