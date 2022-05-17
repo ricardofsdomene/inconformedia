@@ -47,9 +47,15 @@ import { MdTouchApp } from "react-icons/md";
 import Header from "../components/Header";
 import {
   RiCloseLine,
+  RiDiscordFill,
+  RiGithubFill,
+  RiInstagramFill,
+  RiLinkedinBoxFill,
   RiPauseFill,
   RiPlayFill,
   RiPlayLine,
+  RiTwitterFill,
+  RiYoutubeFill,
 } from "react-icons/ri";
 import Head from "next/head";
 
@@ -131,6 +137,7 @@ export default function Index() {
       </Flex>
     );
   }
+
 
   function Apresentation() {
     return (
@@ -215,109 +222,155 @@ export default function Index() {
     return (
       <Flex
         flexDir="column"
-        style={{}}
+        style={{
+          height: isWideVersion && size.height,
+        }}
         justify="space-between"
         align="center"
-        py={isWideVersion ? "20" : "5"}
+        py={isWideVersion ? "20" : "10"}
         px="8"
         mt="10"
         bg="#000"
         w={size.width}
       >
         <Flex flexDir="column" mx="auto" w="100%" maxW={1000}>
+          <Flex w="100%" justify="space-between" align="center">
+            <Text
+              color="#FFF"
+              w="100%"
+              fontWeight="bold"
+              fontSize={isWideVersion ? "7xl" : "5xl"}
+            >
+              {isWideVersion ? "Comunidade ativa" : "Comunidade"}
+            </Text>
+            <Flex align="center">
+              <Icon
+                onClick={() => alert("Criar conta no linkedin e fazer o link")}
+                cursor="pointer"
+                as={RiLinkedinBoxFill}
+                mr={isWideVersion ? "5" : "2"}
+                color="#FFF"
+                fontSize="5xl"
+              />
+              <Icon
+                onClick={() =>
+                  alert("Criar comunidade no discord e fazer o link")
+                }
+                cursor="pointer"
+                as={RiDiscordFill}
+                mr={isWideVersion ? "5" : "2"}
+                color="#FFF"
+                fontSize="5xl"
+              />
+              <Icon
+                onClick={() =>
+                  alert("Criar repositorio no github e fazer o link")
+                }
+                cursor="pointer"
+                as={RiGithubFill}
+                mr={isWideVersion ? "5" : "2"}
+                color="#FFF"
+                fontSize="5xl"
+              />
+            </Flex>
+          </Flex>
           <Text
             color="#FFF"
-            w="100%"
-            fontWeight="bold"
-            fontSize={isWideVersion ? "6xl" : "5xl"}
+            mt="4"
+            fontSize={isWideVersion ? "2xl" : "lg"}
+            w="70%"
           >
-            {isWideVersion ? "A melhor comunidade" : "Comunidade"}
-          </Text>
-          <Text color="#FFF" fontSize={isWideVersion ? "2xl" : "lg"} w="100%">
             Conecte-se com criadores de conteudo, explore por novos produtos e
             um mundo de oportunidades.
           </Text>
+          <Flex mt="10" style={{ height: 1, width: "100%" }} bg="#222" />
+        </Flex>
+
+        <Flex
+          mx="auto"
+          w="100%"
+          maxW={1000}
+          flexDir={isWideVersion ? "row" : "column"}
+          my={isWideVersion ? "4" : "8"}
+          mt="10"
+          justify={isWideVersion && "space-between"}
+        >
           <Flex
-            flexDir={isWideVersion ? "row" : "column"}
-            my={isWideVersion ? "4" : "8"}
-            mt={isWideVersion && "10"}
-            w="100%"
-            justify={isWideVersion && "space-between"}
+            onClick={() => alert("Criar tela de produtos e fazer o link")}
+            boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+            cursor="pointer"
+            borderRadius="5"
+            bg="#111"
+            mt={!isWideVersion && "5"}
+            mr="4"
+            border="1px solid #333"
+            style={{
+              width: isWideVersion ? 300 : "100%",
+            }}
+            flexDir="column"
           >
-            <Flex
-              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
-              cursor="pointer"
-              borderRadius="5"
-              bg="#111"
-              mt={!isWideVersion && "5"}
-              mr="4"
-              border="1px solid #333"
-              style={{
-                width: isWideVersion ? 300 : "100%",
-              }}
-              flexDir="column"
-            >
-              <Flex p="6">
-                <Text color="#FFF" fontWeight="bold" fontSize="lg">
-                  Produtos
-                </Text>
-              </Flex>
-              <Image
-                src="https://cdn.dribbble.com/users/220212/screenshots/15436684/media/23864ee7141adc4fc01c5b4ba862d5bd.png"
-                borderBottomLeftRadius="5"
-                borderBottomRightRadius="5"
-                style={{}}
-              />
+            <Flex p="6">
+              <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                Produtos
+              </Text>
             </Flex>
-            <Flex
-              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
-              cursor="pointer"
-              borderRadius="5"
-              bg="#111"
-              mr="4"
-              mt={!isWideVersion && "5"}
-              border="1px solid #333"
-              style={{
-                width: isWideVersion ? 300 : "100%",
-              }}
-              flexDir="column"
-            >
-              <Flex p="6">
-                <Text color="#FFF" fontWeight="bold" fontSize="lg">
-                  Templates
-                </Text>
-              </Flex>
-              <Image
-                src="https://cdn.dribbble.com/users/220212/screenshots/11531183/media/8311bf6300cf8a32e2b761de8ef4aa81.png"
-                borderBottomLeftRadius="5"
-                borderBottomRightRadius="5"
-                style={{}}
-              />
+            <Image
+              src="https://cdn.dribbble.com/users/220212/screenshots/15436684/media/23864ee7141adc4fc01c5b4ba862d5bd.png"
+              borderBottomLeftRadius="5"
+              borderBottomRightRadius="5"
+              style={{}}
+            />
+          </Flex>
+          <Flex
+            onClick={() => alert("Criar tela de templates e fazer o link")}
+            boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+            cursor="pointer"
+            borderRadius="5"
+            bg="#111"
+            mr="4"
+            mt={!isWideVersion && "5"}
+            border="1px solid #333"
+            style={{
+              width: isWideVersion ? 300 : "100%",
+            }}
+            flexDir="column"
+          >
+            <Flex p="6">
+              <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                Templates
+              </Text>
             </Flex>
-            <Flex
-              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
-              cursor="pointer"
-              borderRadius="5"
-              bg="#111"
-              mt={!isWideVersion && "5"}
-              border="1px solid #333"
-              style={{
-                width: isWideVersion ? 300 : "100%",
-              }}
-              flexDir="column"
-            >
-              <Flex p="6">
-                <Text color="#FFF" fontWeight="bold" fontSize="lg">
-                  Plugins
-                </Text>
-              </Flex>
-              <Image
-                src="https://cdn.dribbble.com/users/220212/screenshots/14485419/media/a6d9b11f0743cb162023738146143f16.png"
-                borderBottomLeftRadius="5"
-                borderBottomRightRadius="5"
-                style={{}}
-              />
+            <Image
+              src="https://cdn.dribbble.com/users/220212/screenshots/11531183/media/8311bf6300cf8a32e2b761de8ef4aa81.png"
+              borderBottomLeftRadius="5"
+              borderBottomRightRadius="5"
+              style={{}}
+            />
+          </Flex>
+          <Flex
+            onClick={() => alert("Criar tela de plugins e fazer o link")}
+            boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+            cursor="pointer"
+            borderRadius="5"
+            bg="#111"
+            mt={!isWideVersion && "5"}
+            border="1px solid #333"
+            style={{
+              width: isWideVersion ? 300 : "100%",
+            }}
+            flexDir="column"
+          >
+            <Flex p="6">
+              <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                Plugins
+              </Text>
             </Flex>
+            <Image
+              src="https://cdn.dribbble.com/users/220212/screenshots/14485419/media/a6d9b11f0743cb162023738146143f16.png"
+              borderBottomLeftRadius="5"
+              borderBottomRightRadius="5"
+              style={{}}
+            />
           </Flex>
         </Flex>
         {/* <Flex
@@ -352,7 +405,7 @@ export default function Index() {
         borderRadius="5"
         px="5"
         pt="5"
-        bg="#777"
+        bg="#000"
         mt="10"
         w={size.width - 50}
         maxW={1000}
@@ -437,7 +490,7 @@ export default function Index() {
   function FAQ() {
     return (
       <Flex my="10" maxW={1000} w={size.width - 50} borderRadius="5" mx="auto">
-        <Accordion bg="#333" w="100%" borderRadius="5">
+        <Accordion bg="#000" w="100%" borderRadius="5">
           <AccordionItem py="5" borderRadius="5">
             <h2>
               <AccordionButton

@@ -56,7 +56,7 @@ export default function TopNav() {
             />
             <Flex flexDir="column">
               <Text fontSize="2xl" fontWeight="bold" color="#333">
-                uppernodes.com
+                uppernodes
               </Text>
             </Flex>
           </Flex>
@@ -95,12 +95,10 @@ export default function TopNav() {
               _focus={{
                 borderRadius: 5,
                 backgroundColor: "#eee",
-                opacity: 0.6,
               }}
               _hover={{
                 borderRadius: 5,
                 backgroundColor: "#eee",
-                opacity: 0.6,
               }}
               justifyContent="space-between"
               py="4"
@@ -116,7 +114,6 @@ export default function TopNav() {
               _hover={{
                 borderRadius: 5,
                 backgroundColor: "#eee",
-                opacity: 0.6,
               }}
               justifyContent="space-between"
               py="4"
