@@ -218,7 +218,7 @@ export default function Index() {
         style={{}}
         justify="space-between"
         align="center"
-        py={isWideVersion ? "10" : "5"}
+        py={isWideVersion ? "20" : "5"}
         px="8"
         mt="10"
         bg="#000"

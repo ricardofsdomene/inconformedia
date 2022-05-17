@@ -101,7 +101,7 @@ export default function Curso() {
     const [name, setName] = useState("");
     const [valor, setValor] = useState(undefined);
 
-    const inputRef = useRef();
+    const inputRef = useRef<HTMLInputElement>();
 
     function handleCreateModelo() {
       if (!name) {
