@@ -12,7 +12,7 @@ import Header from "../../components/Header";
 import { api } from "../../services/apiClient";
 import { string } from "yup";
 import TopNav from "../../components/TopNav";
-import { RiDeleteBin4Line, RiShareLine } from "react-icons/ri";
+import { RiDeleteBin4Line, RiEditLine, RiShareLine } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 
 export default function UserId() {
@@ -198,6 +198,7 @@ export default function UserId() {
                   <Text color="#FFF" fontWeight="bold">
                     Editar dados
                   </Text>
+                  <Icon as={RiEditLine} color="#FFF" fontSize="lg" />
                 </Flex>
                 <Flex
                   mr="2"
