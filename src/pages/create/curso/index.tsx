@@ -177,7 +177,7 @@ export default function Curso() {
           </Flex>
           <Flex position="absolute" right={4}></Flex>
         </Flex>
-        <Flex mb="4">
+        <Flex mb={modelos.length > 0 && "4"}>
           {modelos.map((p, i) => {
             return (
               <Flex
@@ -189,7 +189,7 @@ export default function Curso() {
                 justify="center"
                 align="center"
               >
-                <Text color="#fff">{p.metodo}</Text>
+                <Text color="#fff">{p.name}</Text>
                 <Icon
                   onClick={() => {
                     const filter = modelos.filter((pa) => pa !== p);
@@ -464,15 +464,15 @@ export default function Curso() {
   }
 
   return (
-    <Flex>
+    <Flex flexDir="column">
       <TopNav />
 
       <Flex
         flexDir="column"
-        p="4"
         style={{ marginTop: 80 }}
         boxShadow="rgba(0,0,0,0.1) 0 0 10px"
         w="100vw"
+        p="4"
       >
         <Text
           color="#000"
@@ -544,7 +544,7 @@ export default function Curso() {
         align="center"
         bottom={0}
         boxShadow="rgba(0,0,0,0.1) 0 0 10px"
-        w="100vw"
+        w="100%"
         cursor="pointer"
         bg="#FFF"
         style={{
@@ -555,8 +555,6 @@ export default function Curso() {
           Adicionar curso
         </Text>
       </Flex>
-
-      <Button onClick={onOpen}>Open Modal</Button>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

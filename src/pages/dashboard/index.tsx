@@ -30,14 +30,20 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { BiListPlus, BiLogOut, BiUserPlus } from "react-icons/bi";
-import { FiChevronDown, FiPlusSquare } from "react-icons/fi";
+import { BiLayerPlus, BiListPlus, BiLogOut, BiUserPlus } from "react-icons/bi";
+import { FiChevronDown, FiFolderPlus, FiPlusSquare } from "react-icons/fi";
 import {
   RiArrowDropDownFill,
+  RiMenu2Line,
   RiMenuLine,
   RiNotification2Line,
+  RiPulseLine,
   RiSearch2Line,
   RiShareLine,
+  RiUser3Fill,
+  RiUser3Line,
+  RiUserFill,
+  RiVideoUploadLine,
 } from "react-icons/ri";
 import TopNav from "../../components/TopNav";
 import { AuthContext, signOut } from "../../contexts/AuthContext";
@@ -65,6 +71,42 @@ export default function Landing() {
     lg: true,
   });
 
+  const size = useWindowSize();
+
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    useEffect(() => {
+      // only execute all the code below in client side
+      if (typeof window !== "undefined") {
+        // Handler to call on window resize
+
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+      }
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+  }
+
   function Header() {
     return (
       <Flex
@@ -79,7 +121,7 @@ export default function Landing() {
       >
         <Flex flexDir="row" align="center">
           <Image
-            src="http://localhost:5556/images/inconformedia.png"
+            src="https://503a-168-228-216-82.sa.ngrok.io/images/inconformedia.png"
             w="45"
             h="45"
             mr="2"
@@ -1039,40 +1081,169 @@ export default function Landing() {
     );
   }
 
-  function Paths() {
+  function SearchBar() {
     return (
       <Flex
-        pl="4"
-        align="center"
+        w="100%"
         style={{
-          paddingTop: 100,
-          paddingBottom: 20,
-          width: "100%",
-          top: 80,
+          paddingTop: 80,
         }}
-        bg="#eee"
-        borderBottom="1px solid #e0e0e0"
+        px="4"
+        align="center"
+        justify="space-between"
+      >
+        <Menu>
+          <MenuButton>
+            <Flex
+              boxShadow="rgba(0,0,0,0.1) 0 0 10px"
+              border="1px solid #e0e0e0"
+              style={{
+                height: 50,
+                width: 300,
+              }}
+              borderRadius="5"
+              bg="#FFF"
+              align="center"
+              justify="space-between"
+              px="4"
+            >
+              <Text color="#333" fontWeight="bold">
+                Adicionar
+              </Text>
+              <Text color="#333" cursor="pointer" fontWeight="bold">
+                Curso
+              </Text>
+              <Text color="#333" cursor="pointer" fontWeight="bold">
+                E-Book
+              </Text>
+              <Flex
+                cursor="pointer"
+                border="1px solid #e0e0e0"
+                bg="#333"
+                justify="center"
+                align="center"
+                p="4"
+                style={{
+                  height: 30,
+                  width: 30,
+                }}
+                borderRadius="full"
+              >
+                <Icon as={BiListPlus} color="#FFF" fontSize="18" />
+              </Flex>
+            </Flex>
+          </MenuButton>
+          <MenuList
+            style={{
+              width: 300,
+            }}
+            boxShadow="rgba(0,0,0,0.1) 0 0 10px"
+            mt="1"
+            bg="#FFF"
+            borderRadius="5"
+            zIndex="3"
+            border="1px solid #e0e0e0"
+            py="0"
+          >
+            <Link href="/create/curso">
+              <MenuItem
+                _focus={{
+                  borderRadius: 5,
+                  backgroundColor: "#eee",
+                }}
+                _hover={{
+                  borderRadius: 5,
+                  backgroundColor: "#eee",
+                }}
+                justifyContent="space-between"
+                py="4"
+                borderRadius="5"
+                color="#333"
+                fontSize="sm"
+              >
+                Adicionar Curso
+              </MenuItem>
+            </Link>
+            <MenuItem
+              _hover={{
+                borderRadius: 5,
+                backgroundColor: "#eee",
+              }}
+              borderRadius="5"
+              justifyContent="space-between"
+              py="4"
+              onClick={() => {
+                signOut();
+              }}
+              color="#333"
+              fontSize="sm"
+            >
+              Adicionar E-Book
+            </MenuItem>
+          </MenuList>
+        </Menu>
+        <Flex align="center">
+          <Menu>
+            <MenuButton>
+              <Flex
+                ml="4"
+                cursor="pointer"
+                boxShadow="rgba(0,0,0,0.1) 0 0 10px"
+                style={{
+                  height: 50,
+                  width: 50,
+                }}
+                bg="#fff"
+                align="center"
+                justify="center"
+                borderRadius="full"
+              >
+                <Icon as={RiVideoUploadLine} color="#333" fontSize="18" />
+              </Flex>
+            </MenuButton>
+            <MenuList
+              style={{
+                width: 300,
+                height: 300,
+              }}
+              boxShadow="rgba(0,0,0,0.1) 0 0 10px"
+              mt="1"
+              bg="#FFF"
+              borderRadius="5"
+              zIndex="3"
+              border="1px solid #e0e0e0"
+              py="0"
+            ></MenuList>
+          </Menu>
+        </Flex>
+      </Flex>
+    );
+  }
+
+  function Content() {
+    return (
+      <Flex
+        w={isWideVersion ? "40vw" : "100%"}
+        px="auto"
+        flexDir="column"
+        justify="center"
+        align="center"
+        pr="10"
       >
         <Text
-          mr="4"
-          color="#333"
-          textDecorationColor="red"
-          textDecorationLine={
-            route.pathname === "/dashboard" ? "underline" : "none"
-          }
+          color="#000"
+          w="100%"
+          textAlign="center"
+          fontSize={isWideVersion ? "4xl" : "3xl"}
+          maxW={600}
         >
-          Dashboard
+          Acesso a educação a distância para todos. Agora gratuito para todos.
         </Text>
-        <Link href="/projetos">
-          <Text color="#333" cursor="pointer" mr="4">
-            Projetos
-          </Text>
-        </Link>
-        <Link href="/produtos">
-          <Text mr="4" color="#333" cursor="pointer">
-            Produtos
-          </Text>
-        </Link>
+        <Text color="#000" w="100%" textAlign="center" fontSize="sm" maxW={600}>
+          Com nossos serviços de criação de cursos com módulos e aulas
+          personalizadas você consegue além de fazer disso uma fonte de renda
+          espalhar conhecimento pelo mundo.
+        </Text>
       </Flex>
     );
   }
@@ -1126,39 +1297,72 @@ export default function Landing() {
     );
   }
 
-  if (!user) {
+  // if (!user) {
+  //   return (
+  //     <Flex justify="center" align="center" h="100vh" w="100vw">
+  //       <Spinner size="xl" color="#42ba96" />
+  //     </Flex>
+  //   );
+  // }
+
+  function Greeting() {
     return (
-      <Flex justify="center" align="center" h="100vh" w="100vw">
-        <Spinner size="xl" color="#42ba96" />
-      </Flex>
+      <>
+        <Flex align="center" justify="space-between">
+          <Flex flexDir="column">
+            <Text mt="5" color="#333" fontSize="md">
+              Boa noite
+            </Text>
+            <Text color="#000" fontWeight="bold" fontSize="3xl">
+              Ricardo
+            </Text>
+          </Flex>
+          <Text fontSize="4xl" mt="4" ml="4">
+            👋
+          </Text>
+        </Flex>
+      </>
+    );
+  }
+
+  function ContentCard() {
+    return (
+      <Flex
+        mt="4"
+        borderRadius="5"
+        style={{
+          width: isWideVersion ? 600 : "100%",
+          height: 300,
+        }}
+        boxShadow="rgba(0,0,0,0.1) 0 0 10px"
+        bg="#FFF"
+      ></Flex>
     );
   }
 
   return (
-    <>
+    <Flex flexDir="column" bg="#eee">
       <TopNav />
-      <Paths />
+      <SearchBar />
       <Flex flexDir="column" p="4">
-        {!isWideVersion && (
+        {!isWideVersion ? (
           <>
-            {search && <Search />}
-            {searchResults && <SearchResults />}
-            <Flex align="center" justify="space-between">
-              <Flex flexDir="column">
-                <Text mt="5" color="#333" fontSize="md">
-                  Boa noite
-                </Text>
-                <Text color="#000" fontWeight="bold" fontSize="3xl">
-                  Ricardo
-                </Text>
-              </Flex>
-              <Text fontSize="4xl" mt="4" ml="4">
-                👋
-              </Text>
+            <Content />
+            <ContentCard />
+          </>
+        ) : (
+          <>
+            <Flex w="100%" justify="center" mt="4" align="center">
+              <Content />
+              <ContentCard />
+              {/* <Image
+                src="https://github.com/ricardofsdomene.png"
+                style={{
+                  borderRadius: 5,
+                  width: size.width / 2 - 50,
+                }}
+              /> */}
             </Flex>
-            <Banner />
-            <Dashboard />
-            <Products />
           </>
         )}
       </Flex>
@@ -1314,6 +1518,6 @@ export default function Landing() {
           )}
         </DrawerContent>
       </Drawer>
-    </>
+    </Flex>
   );
 }

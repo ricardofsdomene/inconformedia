@@ -45,7 +45,7 @@ export default function Header() {
         >
           <Flex align="center">
             <Image
-              src="https://a174-2804-14c-3f89-8b76-e362-b2de-f80b-8737.sa.ngrok.io/images/inconformedia.png"
+              src="https://e865-168-228-216-82.sa.ngrok.io/images/inconformedia.png"
               w="45"
               h="45"
               mr="2"

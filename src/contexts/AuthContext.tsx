@@ -87,7 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       } else if (router.pathname === "/auth/signup") {
         //
       } else {
-        router.push("/")
+        router.push("/");
       }
     } else if (token) {
       // Verify if token is valid

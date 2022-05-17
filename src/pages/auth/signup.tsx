@@ -122,7 +122,7 @@ export default function SignUp() {
         >
           <Flex align="center">
             <Image
-              src="https://6978-2804-14c-3f89-8b76-f59d-1218-9869-def4.sa.ngrok.io/images/inconformedia.png"
+              src="https://e865-168-228-216-82.sa.ngrok.io/images/inconformedia.png"
               w="45"
               h="45"
               ml={-5}

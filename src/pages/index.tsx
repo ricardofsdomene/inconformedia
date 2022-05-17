@@ -51,6 +51,7 @@ import {
   RiPlayFill,
   RiPlayLine,
 } from "react-icons/ri";
+import Head from "next/head";
 
 export default function Index() {
   const { user, signOut } = useContext(AuthContext);
@@ -60,6 +61,8 @@ export default function Index() {
   const [banner, setBanner] = useState(false);
 
   const size = useWindowSize();
+
+  const router = useRouter();
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -131,29 +134,32 @@ export default function Index() {
 
   function Apresentation() {
     return (
-      <Flex
-        flexDir="column"
-        pt="5"
-        mx="auto"
-        w={size.width - 50}
-        maxWidth={1000}
-      >
+      <Flex flexDir="column" mx="auto" w={size.width - 50} maxWidth={1000}>
         <Text
           color="#333"
           fontWeight="bold"
           fontSize={isWideVersion ? "4xl" : "3xl"}
           w={isWideVersion ? "60%" : "100%"}
         >
-          A plataforma completa para transformar criadores de conteúdo em
-          empreendedores
+          {user && user._id
+            ? `Olá ${user.name.split(" ")[0]}`
+            : "A plataforma completa para transformar criadores de conteúdo em empreendedores"}
         </Text>
         <Text color="#333" fontSize="lg" w={isWideVersion ? "60%" : "100%"}>
-          Crie seus produtos, acelere suas vendas, gerencie seus resultados e
-          escale seu negócio digital.
+          {user && user._id
+            ? `Acesse sua dashboard para controlar seus produtos, vendas e usuários`
+            : "Crie seus produtos, acelere suas vendas, gerencie seus resultados e escale seu negócio digital."}
         </Text>
         <Flex
+          onClick={() => {
+            if (user && user._id) {
+              router.push("/dashboard");
+            } else {
+              router.push("/signup");
+            }
+          }}
           _hover={{
-            opacity: 0.8
+            opacity: 0.8,
           }}
           cursor="pointer"
           mt="4"
@@ -164,73 +170,43 @@ export default function Index() {
           style={{ height: 50, width: 200 }}
         >
           <Text color="#FFF" fontWeight="bold">
-            Crie seu produto
-          <Icon as={MdTouchApp} color="#FFF" fontSize="14" ml="2"/>
+            {user && user._id ? `Ir para dashboard` : "Crie o seu produto"}
           </Text>
         </Flex>
-        <Flex mt="10" justify="center" align="center">
-          <Image
-            w={size.width - 50}
-            maxW={1000}
-            mx="auto"
-            borderRadius="5"
-            src="https://images.pexels.com/photos/3769999/pexels-photo-3769999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
-          <Flex
-            cursor="pointer"
-            borderRadius="full"
-            p="5"
-            border="2.5px solid #FFF"
-            position="absolute"
-            bg="rgba(0,0,0, 0.5)"
-            justify="center"
-            align="center"
+        {!user && (
+          <Text
+            mt="4"
+            color="#333"
+            fontSize="xs"
+            w={isWideVersion ? "60%" : "100%"}
           >
-            <Icon as={RiPlayFill} color="#FFF" fontSize="50" />
-          </Flex>
-          {/* <ReactPlayer
-            muted={playing}
-            controls={false}
-            playing={playing}
-            config={{
-              file: {
-                attributes: { preload: "auto" },
-                forceAudio: true,
-              },
-            }}
-            style={{
-              borderRadius: "5px !important",
-            }}
-            height={500}
-            width={size.width}
-            url="https://www.youtube.com/watch?v=cvb49-Csq1o"
-          />
-          <Flex
-            onClick={() => {
-              !playing && setPlaying(true);
-            }}
-            cursor={!playing && "pointer"}
-            zIndex="5"
-            p="5"
-            style={{
-              borderRadius: "5px !important",
-              maxWidth: 1000,
-              width: size.width - 50,
-              height: 500,
-            }}
-            justify="flex-start"
-            align="flex-end"
-            position="absolute"
-            bg="rgba(0,0,0, 0.5)"
-          >
-            <Icon
-              onClick={() => setPlaying(!playing)}
-              cursor="pointer"
-              as={playing ? RiPauseFill : RiPlayFill}
-              fontSize="50"
+            Experimente uppernodes grátis, sem cartão de crédito. Basta se
+            registrar e ter acesso a sua conta como criador de conteúdo.
+          </Text>
+        )}
+        {!user && (
+          <Flex mt="10" justify="center" align="center">
+            <Image
+              w={size.width - 50}
+              maxW={1000}
+              mx="auto"
+              borderRadius="5"
+              src="https://images.pexels.com/photos/3769999/pexels-photo-3769999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
-          </Flex> */}
-        </Flex>
+            <Flex
+              cursor="pointer"
+              borderRadius="full"
+              p="5"
+              border="2.5px solid #FFF"
+              position="absolute"
+              bg="rgba(0,0,0, 0.5)"
+              justify="center"
+              align="center"
+            >
+              <Icon as={RiPlayFill} color="#FFF" fontSize="50" />
+            </Flex>
+          </Flex>
+        )}
       </Flex>
     );
   }
@@ -239,49 +215,133 @@ export default function Index() {
     return (
       <Flex
         flexDir="column"
-        borderRadius="5"
-        p="7"
-        py={isWideVersion ? "20" : "10"}
-        mt="10"
-        mx="auto"
-        bg="#000"
-        justify="center"
+        style={{}}
+        justify="space-between"
         align="center"
-        w={size.width - 50}
-        maxWidth={1000}
+        py={isWideVersion ? "10" : "5"}
+        px="8"
+        mt="10"
+        bg="#000"
+        w={size.width}
       >
-        <Text
-          color="#FFF"
-          textAlign="center"
-          w="100%"
-          fontWeight="bold"
-          fontSize={isWideVersion ? "5xl" : "5xl"}
-        >
-          {isWideVersion ? "A melhor comunidade" : "Comunidade"}
-        </Text>
-        <Text
-          mt={isWideVersion ? "4" : "2"}
-          color="#FFF"
-          textAlign="center"
-          fontSize={isWideVersion ? "md" : "sm"}
-          w="100%"
-        >
-          Conecte-se com criadores de conteudo, explore por novos produtos e um
-          mundo de oportunidades.
-        </Text>
-        <Flex
+        <Flex flexDir="column" mx="auto" w="100%" maxW={1000}>
+          <Text
+            color="#FFF"
+            w="100%"
+            fontWeight="bold"
+            fontSize={isWideVersion ? "6xl" : "5xl"}
+          >
+            {isWideVersion ? "A melhor comunidade" : "Comunidade"}
+          </Text>
+          <Text color="#FFF" fontSize={isWideVersion ? "2xl" : "lg"} w="100%">
+            Conecte-se com criadores de conteudo, explore por novos produtos e
+            um mundo de oportunidades.
+          </Text>
+          <Flex
+            flexDir={isWideVersion ? "row" : "column"}
+            my={isWideVersion ? "4" : "8"}
+            mt={isWideVersion && "10"}
+            w="100%"
+            justify={isWideVersion && "space-between"}
+          >
+            <Flex
+              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+              cursor="pointer"
+              borderRadius="5"
+              bg="#111"
+              mt={!isWideVersion && "5"}
+              mr="4"
+              border="1px solid #333"
+              style={{
+                width: isWideVersion ? 300 : "100%",
+              }}
+              flexDir="column"
+            >
+              <Flex p="6">
+                <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                  Produtos
+                </Text>
+              </Flex>
+              <Image
+                src="https://cdn.dribbble.com/users/220212/screenshots/15436684/media/23864ee7141adc4fc01c5b4ba862d5bd.png"
+                borderBottomLeftRadius="5"
+                borderBottomRightRadius="5"
+                style={{}}
+              />
+            </Flex>
+            <Flex
+              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+              cursor="pointer"
+              borderRadius="5"
+              bg="#111"
+              mr="4"
+              mt={!isWideVersion && "5"}
+              border="1px solid #333"
+              style={{
+                width: isWideVersion ? 300 : "100%",
+              }}
+              flexDir="column"
+            >
+              <Flex p="6">
+                <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                  Templates
+                </Text>
+              </Flex>
+              <Image
+                src="https://cdn.dribbble.com/users/220212/screenshots/11531183/media/8311bf6300cf8a32e2b761de8ef4aa81.png"
+                borderBottomLeftRadius="5"
+                borderBottomRightRadius="5"
+                style={{}}
+              />
+            </Flex>
+            <Flex
+              boxShadow="rgba(255,255,255,0.1) 0px 0 10px"
+              cursor="pointer"
+              borderRadius="5"
+              bg="#111"
+              mt={!isWideVersion && "5"}
+              border="1px solid #333"
+              style={{
+                width: isWideVersion ? 300 : "100%",
+              }}
+              flexDir="column"
+            >
+              <Flex p="6">
+                <Text color="#FFF" fontWeight="bold" fontSize="lg">
+                  Plugins
+                </Text>
+              </Flex>
+              <Image
+                src="https://cdn.dribbble.com/users/220212/screenshots/14485419/media/a6d9b11f0743cb162023738146143f16.png"
+                borderBottomLeftRadius="5"
+                borderBottomRightRadius="5"
+                style={{}}
+              />
+            </Flex>
+          </Flex>
+        </Flex>
+        {/* <Flex
           cursor="pointer"
-          mt="10"
+          my="4"
+          maxW={1000}
+          mx="auto"
           borderRadius="5"
           bg="#F00066"
           justify="center"
           align="center"
-          style={{ height: 50, width: isWideVersion ? "50%" : "100%" }}
+          style={{
+            height: isWideVersion ? 100 : 50,
+            width: "100%",
+          }}
         >
-          <Text color="#FFF" fontWeight="bold">
+          <Text
+            color="#FFF"
+            fontWeight="bold"
+            fontSize={isWideVersion ? "2xl" : "lg"}
+          >
             Acessar comunidade
           </Text>
-        </Flex>
+        </Flex> */}
       </Flex>
     );
   }
@@ -349,7 +409,7 @@ export default function Index() {
         flexDir="column"
         borderRadius="5"
         p="5"
-        mt="5"
+        my="10"
         mx="auto"
         w={size.width - 50}
         maxWidth={1000}
@@ -443,12 +503,24 @@ export default function Index() {
 
   return (
     <Flex flex="1" flexDir="column">
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+        />
+      </Head>
       <Header />
       {banner && <Banner />}
       <Apresentation />
-      <Marketplace />
-      <Dashboard />
-      <FAQ />
+      {user ? (
+        <></>
+      ) : (
+        <>
+          <Marketplace />
+          <Dashboard />
+          <FAQ />
+        </>
+      )}
       <Footer />
     </Flex>
   );
