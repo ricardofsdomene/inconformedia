@@ -138,6 +138,7 @@ export default function Index() {
     );
   }
 
+
   function Apresentation() {
     return (
       <Flex flexDir="column" mx="auto" w={size.width - 50} maxWidth={1000}>
@@ -404,7 +405,7 @@ export default function Index() {
         borderRadius="5"
         px="5"
         pt="5"
-        bg="#777"
+        bg="#000"
         mt="10"
         w={size.width - 50}
         maxW={1000}
@@ -489,7 +490,7 @@ export default function Index() {
   function FAQ() {
     return (
       <Flex my="10" maxW={1000} w={size.width - 50} borderRadius="5" mx="auto">
-        <Accordion bg="#333" w="100%" borderRadius="5">
+        <Accordion bg="#000" w="100%" borderRadius="5">
           <AccordionItem py="5" borderRadius="5">
             <h2>
               <AccordionButton

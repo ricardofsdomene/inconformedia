@@ -1341,7 +1341,7 @@ export default function Landing() {
   }
 
   return (
-    <Flex flexDir="column" bg="#eee">
+    <Flex flexDir="column" bg="#eee" h="100vh">
       <TopNav />
       <SearchBar />
       <Flex flexDir="column" p="4">
